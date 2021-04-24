@@ -5,3 +5,13 @@
     z-index: -1;
     border-bottom: 1px solid #EEE;
 }
+
+.MemoryRecord.placeholder {
+    color: #555;
+    text-align: center;
+    background-color: #EFEFEF;
+}
+
+.MemoryRecord.placeholder div{
+    padding-bottom: 10px;
+}

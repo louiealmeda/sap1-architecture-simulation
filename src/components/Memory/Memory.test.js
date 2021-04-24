@@ -10,28 +10,32 @@ describe('<Memory />', () => {
       address: 1,
       opcode: [0,0,0,0],
       opDisplay: "LDA",
-      value: 23
+      value: 23,
+      display: "LDA 23"
     });
 
     expect(parseLine("99 23")).toEqual({
       address: 99,
       opcode: undefined,
       opDisplay: undefined,
-      value: 23
+      value: 23,
+      display: "23"
     });
 
     expect(parseLine("24 HLT")).toEqual({
       address: 24,
       opcode: [1,1,1,1],
       opDisplay: "HLT",
-      value: undefined
+      value: undefined,
+      display: "HLT"
     });
 
     expect(parseLine("  03    LDA    26  ")).toEqual({
       address: 3,
       opcode: [0,0,0,0],
       opDisplay: "LDA",
-      value: 26
+      value: 26,
+      display: "LDA 26"
     });
 
   });
@@ -51,33 +55,38 @@ describe('<Memory />', () => {
         address: 0,
         opcode: [0,0,0,0],
         opDisplay: "LDA",
-        value: 99
+        value: 99,
+        display: "LDA 99"
       },
       {
         address: 1,
         opcode: [0,0,0,0],
         opDisplay: "LDA",
-        value: 23
+        value: 23,
+        display: "LDA 23"
       },
       {
         address: 2,
         opcode: [0,0,1,0],
         opDisplay: "SUB",
-        value: 99
+        value: 99,
+        display: "SUB 99"
       },
       ...Array(21).fill(undefined),
       {
         address: 24,
         opcode: [1,1,1,1],
         opDisplay: "HLT",
-        value: undefined
+        value: undefined,
+        display: "HLT"
       },
       ...Array(74).fill(undefined),
       {
         address: 99,
         opcode: undefined,
         opDisplay: undefined,
-        value: 1
+        value: 1,
+        display: "1"
       }
     ]);
 

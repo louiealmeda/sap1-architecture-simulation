@@ -22,7 +22,7 @@ const buildMemory = (records) => {
             ret.push(undefined);
             continue;
         }
-        
+
         ret.push(current);
 
         if(records.length > 0){
@@ -52,6 +52,7 @@ const parseLine = (line) => {
         opcode: OPCODE_MAPPING[parts[1]],
         opDisplay: OPCODE_MAPPING[parts[1]] ? parts[1] : undefined,
         value: value,
+        display: (parts[1] + " " + (parts[2] || "")).trim()
     }
 }
 

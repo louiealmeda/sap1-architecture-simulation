@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 import './ConBar.scss';
 import { Box, makeStyles } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
+import pins from './pins';
 
-const activations = [0,1,0,0,0,1,1,0,1];
-const pins = [
-  <>C<sub>P</sub></>,
-  <>E<sub>P</sub></>,
-  <>L'<sub>M</sub></>,
-  <>CE'</>,
-  <>L'<sub>I</sub></>,
-  <>E'<sub>I</sub></>,
-  <>L'<sub>A</sub></>,
-  <>E<sub>A</sub></>,
-  <>S<sub>U</sub></>,
-  <>E<sub>U</sub></>,
-  <>L'<sub>B</sub></>,
-  <>L'<sub>O</sub></>,
-];
+// const activations = [0,1,0,0,0,1,1,0,1];
+// const pins2 = [
+//   <>C<sub>P</sub></>,
+//   <>E<sub>P</sub></>,
+//   <>L'<sub>M</sub></>,
+//   <>CE'</>,
+//   <>L'<sub>I</sub></>,
+//   <>E'<sub>I</sub></>,
+//   <>L'<sub>A</sub></>,
+//   <>E<sub>A</sub></>,
+//   <>S<sub>U</sub></>,
+//   <>E<sub>U</sub></>,
+//   <>L'<sub>B</sub></>,
+//   <>L'<sub>O</sub></>,
+// ];
 
 const useStyles = makeStyles((theme)=>({
   active: {
@@ -45,8 +46,8 @@ const ConBar = () => {
     <Box className="ConBar" data-testid="ConBar" display="flex" flexDirection="row" alignItems="flex-end">
       <Box p={2} bgcolor={red[100]} className={classes.t}>T1</Box>
       <Box className={classes.pins} display="flex" bgcolor="white" flex="1">
-        {pins.map((e,i)=>(
-          <Box p={1.5} className={activations[i] ? classes.active : ''}>{e}</Box>
+        {Object.values(pins.controlPins).map((e,i)=>(
+          <Box p={1.5} className={e.val ? classes.active : ''}>{e.display}</Box>
         ))}
       </Box>
     </Box>

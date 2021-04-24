@@ -7,6 +7,7 @@ import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import EditIcon from '@material-ui/icons/Edit';
 
 import MemoryRecord from '../MemoryRecord/MemoryRecord';
+import { buildMemory } from './parsing';
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -26,19 +27,49 @@ const useStyles = makeStyles((theme)=>({
   }
 }));
 
+
+const initial = `
+00 LDA 99
+01 SUB 99
+02 HLT
+24 LDA 98
+99 1
+`;
+
 const renderRecords = (records) => {
   
-  records = [0,1,2,3,4,6,7,8,9,20,98,99];
+  // const ret = [];
+  // let filled = ;
 
-  const ret = [];
+  const toRender = [];
 
+  let skip = false;
+  records.forEach((e,i)=>{
+    
+    if(e !== undefined){
+      skip = false;
+    }
 
+    if(skip){
+      return;
+    }
 
+    if(e === undefined){
+      skip = true;
+    }    
+
+    toRender.push(e);
+  })
 
   return (
     <>
-
-
+      {toRender.map(e=>{
+        if(e === undefined){
+          return <MemoryRecord address="..."></MemoryRecord>;
+        }
+        
+        return <MemoryRecord key={e.address} address={e.address} value={e.display}></MemoryRecord>
+      })}
     </>
   )
 
@@ -46,6 +77,7 @@ const renderRecords = (records) => {
 
 const Memory = () => {
 
+  const mem = buildMemory(initial);
   const classes = useStyles();
 
   return (
@@ -71,9 +103,11 @@ const Memory = () => {
         </Toolbar>
       </AppBar>
       <Box className={classes.scroller}>
-        {[0,1,2,3,4,6,7,8,9,98,99].map(e=>(
+        {renderRecords(mem)}
+
+        {/* {[0,1,2,3,4,6,7,8,9,98,99].map(e=>(
           <MemoryRecord key={e} address={e} value={e}></MemoryRecord>
-        ))}
+        ))} */}
         <Box p={2}>
           Foobar
           The quick brown fox
