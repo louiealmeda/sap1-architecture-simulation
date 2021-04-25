@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './SimulationControls.scss';
 import { AppBar, Box, Button, IconButton, makeStyles, Toolbar, Tooltip, Typography } from '@material-ui/core';
@@ -7,6 +7,11 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import UndoIcon from '@material-ui/icons/Undo';
 import RedoIcon from '@material-ui/icons/Redo';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {steps} from '../../redux/reducers/circuit'
+import {nextStep, previousStep, setState} from '../../redux/reducers/pinState'
+
 
 const useStyles = makeStyles((theme)=>({
   toolbar: {
@@ -18,6 +23,24 @@ const useStyles = makeStyles((theme)=>({
 const SimulationControls = () => {
   const classes = useStyles();
 
+  const step = useSelector(e=>e.step);
+  const dispatch = useDispatch();
+
+
+  useEffect(()=>{
+    console.log(steps[step]);
+    dispatch(setState(steps[step]));
+  },[step, dispatch]);
+
+  const next = () => {
+    dispatch(nextStep());
+    
+  }
+
+  const back = () => {
+    dispatch(previousStep());
+  }
+
   return (
     <div className="SimulationControls" data-testid="SimulationControls">
       <AppBar position="relative" style={{position: 'relative'}}>
@@ -27,17 +50,17 @@ const SimulationControls = () => {
             </Typography>
             <Box flex="1"/> */}
             <Tooltip title="Back">
-              <Button edge="start" color="inherit" aria-label="menu">
+              <Button edge="start" color="inherit" aria-label="menu" onClick={back}>
                 <UndoIcon />
               </Button>
             </Tooltip>
             <Tooltip title="Next">
-              <Button edge="start" color="inherit" aria-label="menu">
+              <Button edge="start" color="inherit" aria-label="menu" onClick={next}>
                 Step
                 <RedoIcon />
               </Button>
             </Tooltip>
-
+            {step}
           </Toolbar>
         </AppBar>
     </div>

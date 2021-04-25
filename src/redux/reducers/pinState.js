@@ -25,36 +25,77 @@ const clockPins = {
 }
 
 
+export const clockMap = ["CLK","CLR","CLK'","CLR'"];
+export const controlMap = ["CP","EP","L'M","CE'","L'I","E'I","L'A","EA","SU","EU","L'B","L'O"];
+
 const pinsSlice = createSlice({
   name: 'pins',
   initialState: {
+    step: 0,
+    t: 1,
+    values: {
+      bus: 0b0001,
+      pc: 0b0001,
+      mar: 0b0000,
+      ram: 0b0100100,
+      ir: 0b0010100,
+      cu: 0b00000101,
+      ar: 0b0001011,
+      alu: 0b0010110,
+      br: 0b0010110,
+      or: 0b001001,
+      bd: 0b000010010
+    },
     control: controlPins,
     clock: clockPins,
     value: 0
   },
   reducers: {
-    incremented: state => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
-    },
-    decremented: state => {
-      state.value -= 1
-    },
-    setClock: ((state, {payload}) => {
+    setClock: (state, {payload}) => {
       state.clock = payload;
-    }),
-    setControl: ((state, {payload}) => {
+    },
+    setControl: (state, {payload}) => {
       // console.log(payload);
       state.control = payload;
-    })
+    },
+    setState: (state, {payload})=>{
+
+
+      if(payload === undefined){
+        return;
+      }
+
+      state.values = payload.values;
+
+      const control = {};
+      controlMap.forEach((e,i)=>{
+        control[e] = payload.control[i];
+      });
+
+      const clock = {};
+      clockMap.forEach((e,i)=>{
+        clock[e] = payload.clock[i];
+      });
+      state.t = payload.t;
+      state.control = control;
+      state.clock = clock;
+    },
+    nextStep: (state) => {
+      
+      state.step += 1;
+    },
+    previousStep: (state) => {
+      if(state.step === 0){
+        return;
+      }
+
+      state.step -= 1;
+    }
 
   }
 })
 
-export const { setControl, setClock, incremented, decremented } = pinsSlice.actions
+export const { setControl, setClock, setState, nextStep, previousStep } = pinsSlice.actions
 
 
 const store = configureStore({
@@ -64,12 +105,4 @@ const store = configureStore({
 export default store;
 
 // Can still subscribe to the store
-store.subscribe(() => console.log(store.getState()))
-
-// Still pass action objects to `dispatch`, but they're created for us
-store.dispatch(incremented())
-// {value: 1}
-store.dispatch(incremented())
-// {value: 2}
-store.dispatch(decremented())
-// {value: 1}
+// store.subscribe(() => console.log(store.getState()))

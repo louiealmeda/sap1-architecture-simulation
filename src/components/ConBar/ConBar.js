@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme)=>({
     fontWeight: "bold",
     zIndex: 1,
     color: "#F55",
-    padding: "3px 10px"
+    padding: "3px 10px",
+    paddingTop: "5px",
     // boxShadow: theme.shadows[10]
   },
   pinDescription: {
@@ -64,12 +65,14 @@ const ConBar = () => {
   const dispatch = useDispatch();
   const controlPins = useSelector(e=>e.control);
   const clockPins = useSelector(e=>e.clock);
+  const t = useSelector(e=>e.t);
   
+
   const toggle = (pin) => {
     const target = {...controlPins};
     
     target[pin] = target[pin] === 0 ? 1 : 0;
-
+    
     dispatch(setControl(target));
   }
 
@@ -105,7 +108,7 @@ const ConBar = () => {
         <Box flex="1">
           
         </Box>
-        <Box bgcolor={red[100]} className={classes.t}>T1</Box>
+        <Box bgcolor={red[100]} className={classes.t}>T{t}</Box>
         {Object.keys(clockPins).map((e,i)=>(
           <Button 
             onClick={()=>toggleClockPin(e)} 

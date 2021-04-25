@@ -10,7 +10,7 @@ import Bus from '../Module/Bus/Bus';
 const ModulesCanvas = () => (
   <Box className="ModulesCanvas" data-testid="ModulesCanvas" style={{overflow: 'scroll'}} pt={2}>
     <Box>
-      <Module 
+      <Module name="pc" size="4"
         left={
           <>
             <Pin value="CP"/>
@@ -29,7 +29,7 @@ const ModulesCanvas = () => (
           <Box p={1}/>
         }
       >Program Counter</Module>
-      <Module 
+      <Module name="mar" size="4"
         left={
           <>
             <Pin value="L'M"/>
@@ -49,7 +49,7 @@ const ModulesCanvas = () => (
           </>
         }
       >MAR</Module>
-      <Module
+      <Module name="ram"
         left={
           <>
             <Bus enable="L'M" width={8} direction="right"/>
@@ -66,7 +66,7 @@ const ModulesCanvas = () => (
           <Box p={1}/>
         }
       >RAM</Module>
-      <Module
+      <Module name="ir"
         left={
           <>
             <Pin value="L'I"/>
@@ -89,7 +89,7 @@ const ModulesCanvas = () => (
           </>
         }
       >Input Register</Module>
-      <Module
+      <Module name="cu" size="4"
         left={
           <Box style={{visibility: "hidden"}}><Pin/></Box>
         }
@@ -110,10 +110,10 @@ const ModulesCanvas = () => (
       >Control Unit</Module>
     </Box>
     <Box display="flex">
-      <Module style={{height: "570px"}} flexDirection="row" flex="1" display="flex">Bus</Module>
+      <Module name="bus" style={{height: "570px"}} flexDirection="row" flex="1" display="flex">Bus</Module>
     </Box>
     <Box>
-      <Module
+      <Module name="ar"
         right={
           <>
             <Pin value="L'A" direction="left"/>
@@ -123,17 +123,17 @@ const ModulesCanvas = () => (
         }
         left={
           <>
-            <Bus enable="E'A" width={8} direction="left"/>
+            <Bus enable="EA" width={8} direction="left"/>
             <Bus enable="L'A" width={8} direction="right"/>
           </>
         }
         bottom={
           <>
-            <Bus enable="E'A" width={8} direction="down"/>
+            <Bus enable="EU" width={8} direction="down"/>
           </>
         }
       >A Register</Module>
-      <Module
+      <Module name="alu"
         right={
           <>
             <Pin value="SU" direction="left"/>
@@ -143,11 +143,11 @@ const ModulesCanvas = () => (
         left={
           <>
           {/* TODO: Double check enable */}
-            <Bus enable="L'B" width={8} direction="left"/> 
+            <Bus enable="EU" width={8} direction="left"/> 
           </>
         }
       >ALU</Module>
-      <Module
+      <Module name="br"
         right={
           <>
             <Pin value="L'B" direction="left"/>
@@ -162,7 +162,7 @@ const ModulesCanvas = () => (
 
         top={
           <>
-            <Bus enable="L'B" width={8} direction="up"/>
+            <Bus enable="EU" width={8} direction="up"/>
           </>
         }
 
@@ -172,7 +172,7 @@ const ModulesCanvas = () => (
           </>
         }
       >B Register</Module>
-      <Module
+      <Module name="or"
         right={
           <>
             <Pin value="L'O" direction="left"/>
@@ -192,7 +192,7 @@ const ModulesCanvas = () => (
           </>
         }
       >Output Register</Module>
-      <Module
+      <Module name="bd"
         right={
           <Box style={{visibility: 'hidden'}}>
             <Pin direction="left"/>

@@ -117,21 +117,77 @@ const executionSequence = [
     c.controlUnit.execute
 ];
 
-// T1,CP,EP,L'M,CE',L'I,E'I,L'A,EA,SU,EU,L'B,L'O,CLK,CLR,CLK',CLR',pc, mar,ram,ir,cu,areg,alu,breg,outreg,binDis
-const steps = [
+export const steps = [
     {
         t: 1,
-        con: [],
-        clk: [],
-        bus: 0,
-        pc: 0,
-        ram: 0,
-        ir: 0,
-        cu: 0,
-        areg: 0,
-        alu: 0,
-        breg: 0,
-        outreg: 0,
-        binDis: 0,
+        control: [0,1,0,1, 1,1,1,0, 0,0,1,1],
+        clock: [0,0,0,0],
+        values: {
+            bus: 0,
+            pc: 0b0000,
+            mar: 0b0000,
+            ram: 0b0000,
+            ir: 0b00000,
+            cu: 0,
+            areg: 0,
+            alu: 0,
+            breg: 0,
+            outreg: 0,
+            binDis: 0,
+        }
+    },
+    {
+        t: 2,
+        control: [1,0,1,1, 1,1,1,0, 0,0,1,1],
+        clock: [1,1,1,1],
+        values: {
+            bus: 0,
+            pc: 0b0001,
+            mar: 0b0000,
+            ram: 0,
+            ir: 0b0000,
+            cu: 0,
+            areg: 0,
+            alu: 0,
+            breg: 0,
+            outreg: 0,
+            binDis: 0,
+        }
+    },
+    {
+        t: 3,
+        control: [0,0,1,0, 0,1,1,0, 0,0,1,1],
+        clock: [0,0,0,0],
+        values: {
+            bus: 0b00010100,
+            pc: 0b0001,
+            mar: 0b0000,
+            ram: 0b010100, //TODO: change random number
+            ir: 0b00010100,
+            cu: 0,
+            areg: 0,
+            alu: 0,
+            breg: 0,
+            outreg: 0,
+            binDis: 0,
+        }
+    },
+    {
+        t: 4,
+        control: [0,0,0,1, 1,0,1,0, 0,0,1,1],
+        clock: [0,0,0,0],
+        values: {
+            bus: 0b000100,
+            pc: 0b0001,
+            mar: 0b0100,
+            ram: 0b0100, //TODO: change random number
+            ir: 0b00010100,
+            cu: 0b0001,
+            areg: 0,
+            alu: 0,
+            breg: 0,
+            outreg: 0,
+            binDis: 0,
+        }
     }
 ]

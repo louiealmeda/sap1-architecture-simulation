@@ -4,6 +4,7 @@ import './Module.scss';
 import { Box, makeStyles } from '@material-ui/core';
 import Bus from './Bus/Bus'
 import styles from '../../styles';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -49,8 +50,12 @@ const useStyles = makeStyles((theme)=>({
   }
 }));
 
-const Module = ({children, left, right, top, bottom, ...rest}) => {
+const Module = ({name, size, children, left, right, top, bottom, ...rest}) => {
   const classes = useStyles();
+
+  size = size || 8;
+  const value = useSelector(e=>e.values[name]) || 0;
+
   return (
     <Box display="flex" className={classes.root} data-testid="Module" flexDirection="column" {...rest}>
       <Box display="flex" justifyContent="center">{top}</Box>
@@ -59,7 +64,7 @@ const Module = ({children, left, right, top, bottom, ...rest}) => {
         <Box flex="1" p={3} className={classes.chip}>
           <Box className={classes.label}>{children}</Box>
           <Box display="flex" justifyContent="center">
-            <Box display="inline" className={classes.value}>010011</Box>
+            <Box display="inline" className={classes.value}>{value.toString(2).padStart(size, "0")}</Box>
           </Box>
         </Box>
         <Box display="flex" flexDirection="column" justifyContent="center">{right}</Box>
