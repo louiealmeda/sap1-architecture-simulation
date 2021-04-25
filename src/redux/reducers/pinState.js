@@ -2,26 +2,26 @@ import { createSlice, configureStore } from '@reduxjs/toolkit'
 
 
 const controlPins = {
-  "CP": 0,
+  "CP": 1,
   "EP": 0,
-  "L'M": 0,
-  "CE'": 0,
-  "L'I": 0,
-  "E'I": 0,
-  "L'A": 0,
+  "L'M": 1,
+  "CE'": 1,
+  "L'I": 1,
+  "E'I": 1,
+  "L'A": 1,
   "EA": 0,
   "SU": 0,
   "EU": 0,
-  "L'B": 0,
-  "L'O": 0,
+  "L'B": 1,
+  "L'O": 1,
 }
 
 
 const clockPins = {
   "CLK": 0,
   "CLR": 0,
-  "CLK'": 1,
-  "CLR'": 1,
+  "CLK'": 0,
+  "CLR'": 0,
 }
 
 

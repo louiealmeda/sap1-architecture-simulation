@@ -10,6 +10,7 @@ import styles from '../../../styles';
 
 import pins from '../../ConBar/pins';
 import { useSelector } from 'react-redux';
+import { isActive } from '../../../redux/reducers/circuit';
 
 
 const useStyles = makeStyles(()=>({
@@ -31,8 +32,10 @@ const Bus = ({direction, width, enable, ...rest}) => {
   const controlPins = useSelector(e=>e.control);
   const clockPins = useSelector(e=>e.clock);
 
-  let display = (pins.controlPins[enable] || pins.clockPins[enable] || {}).display;
-  let enabled = controlPins[enable] || clockPins[enable] || false;
+  const pins = {...controlPins, ...clockPins};
+  
+  // let display = (pins.controlPins[enable] || pins.clockPins[enable] || {}).display;
+  let enabled = isActive(enable, pins);// controlPins[enable] || clockPins[enable] || false;
 
   // let selected = pins.controlPins[enable] || pins.clockPins[enable] || {};
   

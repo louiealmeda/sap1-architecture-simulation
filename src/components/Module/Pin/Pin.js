@@ -6,6 +6,7 @@ import { Box, makeStyles } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import styles from '../../../styles';
 import { useSelector } from 'react-redux';
+import { isActive } from '../../../redux/reducers/circuit';
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -50,9 +51,11 @@ const Pin = ({value, children, ...rest}) => {
   const controlPins = useSelector(e=>e.control);
   const clockPins = useSelector(e=>e.clock);
   
-  let display = (pins.controlPins[value] || pins.clockPins[value] || {}).display;
-  let enabled = controlPins[value] || clockPins[value] || false;
+  const pinValues = {...controlPins, ...clockPins};
 
+  let display = (pins.controlPins[value] || pins.clockPins[value] || {}).display;
+  let enabled = isActive(value, pinValues);// controlPins[value] || clockPins[value] || false;
+  
   return (
     <div className={classes.root} data-testid="Pin" {...rest}>
       <Box className={enabled ? classes.active : ''}>

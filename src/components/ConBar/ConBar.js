@@ -7,7 +7,7 @@ import pins from './pins';
 import { useSelector, useDispatch } from 'react-redux';
 import {setControl,setClock} from '../../redux/reducers/pinState';
 import Button from '@material-ui/core/Button';
-
+import { isActive } from '../../redux/reducers/circuit';
 
 // const activations = [0,1,0,0,0,1,1,0,1];
 // const pins2 = [
@@ -43,7 +43,18 @@ const useStyles = makeStyles((theme)=>({
     color: "#F55",
     padding: "3px 10px"
     // boxShadow: theme.shadows[10]
-  }
+  },
+  pinDescription: {
+    position: "relative",
+    top: "-3px"
+  },
+  binValue: {
+    position: "absolute",
+    bottom: "-9px",
+    fontSize: "13px",
+    left: "calc(50% - 2px)",
+    fontWeight: "bold"
+  },
 }));
 
 const ConBar = () => {
@@ -65,7 +76,10 @@ const ConBar = () => {
   const toggleClockPin = (pin) => {
     const target = {...clockPins};
     
+    const pinAlt = pin.indexOf("'") === -1 ? pin + "'" : pin.replace("'", "");
+
     target[pin] = target[pin] === 0 ? 1 : 0;
+    target[pinAlt] = target[pin];
 
     dispatch(setClock(target));
   }
@@ -78,8 +92,15 @@ const ConBar = () => {
             onClick={()=>toggle(e)} 
             key={i} 
             style={{padding: "7px", fontSize: "20px", minWidth: "50px", width: "50px", borderRadius: "0px"}} 
-            className={controlPins[e] === 1 ? classes.active : ''}
-          >{(pins.controlPins[e] || {}).display}</Button>
+            className={isActive(e, controlPins) ? classes.active : ''}
+          >
+            <Box className={classes.pinDescription}>
+              {(pins.controlPins[e] || {}).display}
+              <div></div>
+              <Box className={classes.binValue}>{controlPins[e]}</Box>
+            </Box>
+
+          </Button>
         ))}
         <Box flex="1">
           
@@ -90,8 +111,15 @@ const ConBar = () => {
             onClick={()=>toggleClockPin(e)} 
             key={i} 
             style={{padding: "7px", fontSize: "20px", minWidth: "50px", width: "50px", borderRadius: "0px"}} 
-            className={clockPins[e] === 1 ? classes.active : ''}
-          >{(pins.clockPins[e] || {}).display}</Button>
+            className={isActive(e, clockPins) ? classes.active : ''}
+          >
+            <Box className={classes.pinDescription}>
+              {(pins.clockPins[e] || {}).display}
+              <div></div>
+              <Box className={classes.binValue}>{clockPins[e]}</Box>
+            </Box>
+            {/* {(pins.clockPins[e] || {}).display} */}
+          </Button>
         ))}
       </Box>
     </Box>
