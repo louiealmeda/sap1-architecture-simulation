@@ -44,7 +44,7 @@ const ConBar = () => {
 
   return (
     <Box className="ConBar" data-testid="ConBar" display="flex" flexDirection="row" alignItems="flex-end">
-      <Box p={2} bgcolor={red[100]} className={classes.t}>T1</Box>
+      {/* <Box p={2} bgcolor={red[100]} className={classes.t}>T1</Box> */}
       <Box className={classes.pins} display="flex" bgcolor="white" flex="1">
         {Object.values(pins.controlPins).map((e,i)=>(
           <Box p={1.5} className={e.val ? classes.active : ''}>{e.display}</Box>

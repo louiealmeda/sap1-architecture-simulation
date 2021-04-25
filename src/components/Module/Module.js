@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './Module.scss';
 import { Box, makeStyles } from '@material-ui/core';
 import Bus from './Bus/Bus'
+import styles from '../../styles';
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -10,6 +11,8 @@ const useStyles = makeStyles((theme)=>({
     // overflow: "hidden",
   },
   chip: {
+    textShadow: "0px -1px rgb(0 0 0 / 50%), 0px 0px rgb(255 255 255)",
+    color: "rgba(255,255,255, 0.9)",
     boxShadow: theme.shadows[4],
     borderRadius: "4px",
     backgroundColor: "white",
@@ -18,7 +21,9 @@ const useStyles = makeStyles((theme)=>({
     borderBottom: "1px solid #222",
     borderLeft: "1px solid #777",
     borderRight: "1px solid #777",
-
+    zIndex: 10,
+    cursor: "default",
+    "&:hover": styles.highlight
   },
   label: {
     textAlign: "center",
@@ -38,7 +43,9 @@ const useStyles = makeStyles((theme)=>({
     borderRadius: "3px",
     fontFamily: 'Monaco',
     letterSpacing: "2px",
-    boxShadow: "0px 2px 6px rgb(0 0 0 / 30%)"
+    boxShadow: "0px 2px 6px rgb(0 0 0 / 30%)",
+    cursor: "text",
+    "&:hover": styles.highlight
   }
 }));
 
@@ -46,7 +53,7 @@ const Module = ({children, left, right, top, bottom, ...rest}) => {
   const classes = useStyles();
   return (
     <Box display="flex" className={classes.root} data-testid="Module" flexDirection="column" {...rest}>
-      <Box>{top}</Box>
+      <Box display="flex" justifyContent="center">{top}</Box>
       <Box display="flex">
         <Box display="flex" flexDirection="column" justifyContent="center">{left}</Box>
         <Box flex="1" p={3} className={classes.chip}>
@@ -57,7 +64,7 @@ const Module = ({children, left, right, top, bottom, ...rest}) => {
         </Box>
         <Box display="flex" flexDirection="column" justifyContent="center">{right}</Box>
       </Box>
-      <Box>{bottom}</Box>
+      <Box display="flex" justifyContent="center">{bottom}</Box>
     </Box>
   )
 };
