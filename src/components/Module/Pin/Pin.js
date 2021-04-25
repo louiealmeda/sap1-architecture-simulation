@@ -5,6 +5,7 @@ import pins from '../../ConBar/pins';
 import { Box, makeStyles } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import styles from '../../../styles';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -46,12 +47,16 @@ const useStyles = makeStyles((theme)=>({
 const Pin = ({value, children, ...rest}) => {
   const classes = useStyles();
 
-  let selected = pins.controlPins[value] || pins.clockPins[value] || {};
+  const controlPins = useSelector(e=>e.control);
+  const clockPins = useSelector(e=>e.clock);
+  
+  let display = (pins.controlPins[value] || pins.clockPins[value] || {}).display;
+  let enabled = controlPins[value] || clockPins[value] || false;
 
   return (
     <div className={classes.root} data-testid="Pin" {...rest}>
-      <Box className={selected.val ? classes.active : ''}>
-        {selected.display}
+      <Box className={enabled ? classes.active : ''}>
+        {display}
       </Box>
       <div className={classes.wire}></div>
     </div>

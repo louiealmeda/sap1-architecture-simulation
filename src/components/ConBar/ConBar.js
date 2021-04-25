@@ -4,6 +4,10 @@ import './ConBar.scss';
 import { Box, makeStyles } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
 import pins from './pins';
+import { useSelector, useDispatch } from 'react-redux';
+import {setControl,setClock} from '../../redux/reducers/pinState';
+import Button from '@material-ui/core/Button';
+
 
 // const activations = [0,1,0,0,0,1,1,0,1];
 // const pins2 = [
@@ -23,31 +27,71 @@ import pins from './pins';
 
 const useStyles = makeStyles((theme)=>({
   active: {
-    backgroundColor: green[100]
+    backgroundColor: green[100],
+    "&:hover": {
+      backgroundColor: green[200],
+    }
   },
   pins: {
     fontSize: '20px',
     boxShadow: theme.shadows[10]
   },
   t: {
-    fontSize: "34px",
+    fontSize: "36px",
     fontWeight: "bold",
     zIndex: 1,
     color: "#F55",
-    boxShadow: theme.shadows[10]
+    padding: "3px 10px"
+    // boxShadow: theme.shadows[10]
   }
 }));
 
 const ConBar = () => {
 
   const classes = useStyles();
+  
+  const dispatch = useDispatch();
+  const controlPins = useSelector(e=>e.control);
+  const clockPins = useSelector(e=>e.clock);
+  
+  const toggle = (pin) => {
+    const target = {...controlPins};
+    
+    target[pin] = target[pin] === 0 ? 1 : 0;
+
+    dispatch(setControl(target));
+  }
+
+  const toggleClockPin = (pin) => {
+    const target = {...clockPins};
+    
+    target[pin] = target[pin] === 0 ? 1 : 0;
+
+    dispatch(setClock(target));
+  }
 
   return (
     <Box className="ConBar" data-testid="ConBar" display="flex" flexDirection="row" alignItems="flex-end">
-      {/* <Box p={2} bgcolor={red[100]} className={classes.t}>T1</Box> */}
       <Box className={classes.pins} display="flex" bgcolor="white" flex="1">
-        {Object.values(pins.controlPins).map((e,i)=>(
-          <Box p={1.5} className={e.val ? classes.active : ''}>{e.display}</Box>
+        {Object.keys(controlPins).map((e,i)=>(
+          <Button 
+            onClick={()=>toggle(e)} 
+            key={i} 
+            style={{padding: "7px", fontSize: "20px", minWidth: "50px", width: "50px", borderRadius: "0px"}} 
+            className={controlPins[e] === 1 ? classes.active : ''}
+          >{(pins.controlPins[e] || {}).display}</Button>
+        ))}
+        <Box flex="1">
+          
+        </Box>
+        <Box bgcolor={red[100]} className={classes.t}>T1</Box>
+        {Object.keys(clockPins).map((e,i)=>(
+          <Button 
+            onClick={()=>toggleClockPin(e)} 
+            key={i} 
+            style={{padding: "7px", fontSize: "20px", minWidth: "50px", width: "50px", borderRadius: "0px"}} 
+            className={clockPins[e] === 1 ? classes.active : ''}
+          >{(pins.clockPins[e] || {}).display}</Button>
         ))}
       </Box>
     </Box>

@@ -9,6 +9,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import styles from '../../../styles';
 
 import pins from '../../ConBar/pins';
+import { useSelector } from 'react-redux';
 
 
 const useStyles = makeStyles(()=>({
@@ -27,8 +28,14 @@ const useStyles = makeStyles(()=>({
 const Bus = ({direction, width, enable, ...rest}) => {
   const classes = useStyles();
 
-  let selected = pins.controlPins[enable] || pins.clockPins[enable] || {};
-  // console.log(selected, !!selected.val +"");
+  const controlPins = useSelector(e=>e.control);
+  const clockPins = useSelector(e=>e.clock);
+
+  let display = (pins.controlPins[enable] || pins.clockPins[enable] || {}).display;
+  let enabled = controlPins[enable] || clockPins[enable] || false;
+
+  // let selected = pins.controlPins[enable] || pins.clockPins[enable] || {};
+  
   if(direction === "up"){
     return (
       <Box className={classes.root} 
@@ -38,7 +45,7 @@ const Bus = ({direction, width, enable, ...rest}) => {
         alignItems="center" 
         justifyContent="center"
         style={{padding: "0px 2px 10px 2px"}}
-        active={!!selected.val + ""}
+        active={!!enabled + ""}
         {...rest}
       >
         <KeyboardArrowUpIcon/>
@@ -56,7 +63,7 @@ const Bus = ({direction, width, enable, ...rest}) => {
         alignItems="center" 
         justifyContent="center"
         style={{padding: "10px 2px 0px 2px"}}
-        active={!!selected.val + ""}
+        active={!!enabled + ""}
         {...rest}
       >
         {width}
@@ -74,7 +81,7 @@ const Bus = ({direction, width, enable, ...rest}) => {
         display="flex" 
         alignItems="center" 
         justifyContent="center"
-        active={!!selected.val + ""}
+        active={!!enabled + ""}
         {...rest}
       >
         <ChevronLeftIcon/>
@@ -91,7 +98,7 @@ const Bus = ({direction, width, enable, ...rest}) => {
       display="flex" 
       alignItems="center" 
       justifyContent="center"
-      active={!!selected.val + ""}
+      active={!!enabled + ""}
       {...rest}
     >
       {width}

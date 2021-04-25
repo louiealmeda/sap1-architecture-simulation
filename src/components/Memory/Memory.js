@@ -63,9 +63,9 @@ const renderRecords = (records) => {
 
   return (
     <>
-      {toRender.map(e=>{
+      {toRender.map((e,i)=>{
         if(e === undefined){
-          return <MemoryRecord address="..."></MemoryRecord>;
+          return <MemoryRecord key={i} address="..."></MemoryRecord>;
         }
         
         return <MemoryRecord key={e.address} address={e.address} value={e.display}></MemoryRecord>
