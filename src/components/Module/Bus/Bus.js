@@ -35,7 +35,7 @@ const Bus = ({direction, width, enable, ...rest}) => {
   const pins = {...controlPins, ...clockPins};
   
   // let display = (pins.controlPins[enable] || pins.clockPins[enable] || {}).display;
-  let enabled = isActive(enable, pins);// controlPins[enable] || clockPins[enable] || false;
+  let enabled = isActive(enable, pins) || enable === "true";// controlPins[enable] || clockPins[enable] || false;
 
   // let selected = pins.controlPins[enable] || pins.clockPins[enable] || {};
   

@@ -34,17 +34,26 @@ const pinsSlice = createSlice({
     step: 0,
     t: 1,
     values: {
-      bus: 0b0001,
-      pc: 0b0001,
-      mar: 0b0000,
-      ram: 0b0100100,
-      ir: 0b0010100,
-      cu: 0b00000101,
-      ar: 0b0001011,
-      alu: 0b0010110,
-      br: 0b0010110,
-      or: 0b001001,
-      bd: 0b000010010
+      bus: 0b00000,
+      pc: 0b0000,
+      mar: 0b00000,
+      ram: NaN,
+      ir: NaN,
+      cu: NaN,
+      areg: NaN,
+      alu: NaN,
+      breg: NaN,
+      outreg: NaN,
+      binDis: NaN,
+    },
+    memory: {
+      
+      0: 0b00001111,
+      1: 0b00011110,
+      2: 0b11110000,
+      14: 0b00000101,
+      15: 0b00000001
+      
     },
     control: controlPins,
     clock: clockPins,
@@ -91,7 +100,6 @@ const pinsSlice = createSlice({
 
       state.step -= 1;
     }
-
   }
 })
 

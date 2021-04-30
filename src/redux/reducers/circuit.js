@@ -1,5 +1,5 @@
 const pins = {
-    "CP": 1,
+    "CP": 0,
     "EP": 0,
     "L'M": 0,
     "CE'": 0,
@@ -18,21 +18,33 @@ const pins = {
 }
 
   
-const c = {
+export const c = {
     memory: {
         0: 0b0100001,
         1: 0b0000001,
         24: 0b000010,
         99: 0b00000001
     },
-    setPins: (pins) => {
+    t: 0,
+    setPins: (values) => {
         // TODO
+
+        Object.keys(pins).forEach((e,i)=>{
+            pins[e] = values[i];
+        })
+
     },
     bus: {
         value: 0b0000000,
         setValue: (value) => {
             c.bus.value = value;
-            c.mar.execute();
+            
+        },
+        execute: () => {
+
+            if(isActive("L'M")){
+                c.mar.execute();
+            }
         }
     },
     programCounter: {
@@ -88,6 +100,44 @@ const c = {
 
             const opcode = c.inputRegister.value; // TODO: split binary
 
+            if(c.t === 2){
+                c.setPins([1,0,1,1,1,1, 1, 0, 0, 0,1,1]);
+            }
+        }
+    },
+    aRegister: {
+        value: 0,
+        execute: () => {
+
+            
+        }
+    },
+    bRegister: {
+        value: 0,
+        execute: () => {
+
+            
+        }
+    },
+    alu: {
+        value: 0,
+        execute: () => {
+
+            
+        }
+    },
+    outputRegister: {
+        value: 0,
+        execute: () => {
+
+            
+        }
+    },
+    binaryDisplay: {
+        value: 0,
+        execute: () => {
+
+            
         }
     }
 
@@ -114,8 +164,55 @@ const executionSequence = [
     c.mar.execute,
     c.ram.execute,
     c.inputRegister.execute,
-    c.controlUnit.execute
+    c.controlUnit.execute,
+    c.aRegister.execute,
+    c.bRegister.execute,
+    c.alu.execute,
+    c.bus.execute,
+    c.outputRegister.execute,
+    c.binaryDisplay.execute
 ];
+
+export const run = (c) => {
+    
+    const states = [];
+    for(let i = 0; i < 10; i++){
+        const t = i % 6 + 1;
+
+        states.push(tick(t, pins, c));
+    }
+    return states;
+}
+
+const tick = (t, pins, c) => {
+ 
+    executionSequence.forEach(e=> {
+        e();
+    });
+
+    const values = Object.values(pins);
+
+    return {
+        t,
+        control: values.slice(0,12),
+        clock: values.slice(12,16),
+        values: {
+            bus: c.bus.value,
+            pc: c.programCounter.value,
+            mar: c.mar.value,
+            ram: c.ram.value,
+            ir: c.inputRegister.value,
+            cu: c.controlUnit.value,
+            areg: c.aRegister.value,
+            alu: c.alu.value,
+            breg: c.bRegister.value,
+            outreg: c.outputRegister.value,
+            binDis: c.binaryDisplay.value,
+        }
+
+    }
+
+}
 
 export const steps = [
     {
@@ -134,6 +231,13 @@ export const steps = [
             breg: 0,
             outreg: 0,
             binDis: 0,
+        },
+        memory: {
+            0: 0b0100001,
+            1: 0b0000001,
+            2: 0b0000001,
+            24: 0b000010,
+            99: 0b00000001
         }
     },
     {
@@ -152,6 +256,13 @@ export const steps = [
             breg: 0,
             outreg: 0,
             binDis: 0,
+        },
+        memory: {
+            0: 0b0100001,
+            1: 0b0000001,
+            2: 0b0000001,
+            24: 0b000010,
+            99: 0b00000001
         }
     },
     {
@@ -170,6 +281,13 @@ export const steps = [
             breg: 0,
             outreg: 0,
             binDis: 0,
+        },
+        memory: {
+            0: 0b0100001,
+            1: 0b0000001,
+            2: 0b0000001,
+            24: 0b000010,
+            99: 0b00000001
         }
     },
     {
@@ -188,6 +306,13 @@ export const steps = [
             breg: 0,
             outreg: 0,
             binDis: 0,
+        },
+        memory: {
+            0: 0b0100001,
+            1: 0b0000001,
+            2: 0b0000001,
+            24: 0b000010,
+            99: 0b00000001
         }
     }
 ]

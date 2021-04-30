@@ -54,8 +54,13 @@ const Module = ({name, size, children, left, right, top, bottom, ...rest}) => {
   const classes = useStyles();
 
   size = size || 8;
-  const value = useSelector(e=>e.values[name]) || 0;
+  const value = useSelector(e=>e.values[name]);
+  
+  let display = value;
 
+  if(isNaN(value)){
+    display = "".padStart(size, "X")
+  }
   return (
     <Box display="flex" className={classes.root} data-testid="Module" flexDirection="column" {...rest}>
       <Box display="flex" justifyContent="center">{top}</Box>
@@ -64,7 +69,8 @@ const Module = ({name, size, children, left, right, top, bottom, ...rest}) => {
         <Box flex="1" p={3} className={classes.chip}>
           <Box className={classes.label}>{children}</Box>
           <Box display="flex" justifyContent="center">
-            <Box display="inline" className={classes.value}>{value.toString(2).padStart(size, "0")}</Box>
+            {/* {display} {value} */}
+            <Box display="inline" className={classes.value}>{display.toString(2).padStart(size, "0")}</Box>
           </Box>
         </Box>
         <Box display="flex" flexDirection="column" justifyContent="center">{right}</Box>

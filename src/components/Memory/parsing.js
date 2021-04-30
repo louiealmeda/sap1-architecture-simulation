@@ -16,7 +16,7 @@ const buildMemory = (records) => {
     const ret = [];
     let current = parseLine(records.shift());
 
-    for(var i = 0; i< 100; i++){
+    for(var i = 0; i< 16; i++){
 
         if(current === undefined || current.address > i){
             ret.push(undefined);

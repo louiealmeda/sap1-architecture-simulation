@@ -85,7 +85,7 @@ const ModulesCanvas = () => (
 
         bottom={
           <>
-            <Bus enable="E'I" width={4} direction="down"/>
+            <Bus enable="true" width={4} direction="down"/>
           </>
         }
       >Input Register</Module>
@@ -113,7 +113,7 @@ const ModulesCanvas = () => (
       <Module name="bus" style={{height: "570px"}} flexDirection="row" flex="1" display="flex">Bus</Module>
     </Box>
     <Box>
-      <Module name="ar"
+      <Module name="areg"
         right={
           <>
             <Pin value="L'A" direction="left"/>
@@ -147,7 +147,7 @@ const ModulesCanvas = () => (
           </>
         }
       >ALU</Module>
-      <Module name="br"
+      <Module name="breg"
         right={
           <>
             <Pin value="L'B" direction="left"/>
@@ -172,7 +172,7 @@ const ModulesCanvas = () => (
           </>
         }
       >B Register</Module>
-      <Module name="or"
+      <Module name="oreg"
         right={
           <>
             <Pin value="L'O" direction="left"/>

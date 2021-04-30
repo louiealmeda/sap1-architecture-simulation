@@ -8,6 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import MemoryRecord from '../MemoryRecord/MemoryRecord';
 import { buildMemory } from './parsing';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme)=>({
   root: {
@@ -29,11 +30,11 @@ const useStyles = makeStyles((theme)=>({
 
 
 const initial = `
-00 LDA 99
-01 SUB 99
+00 LDA 15
+01 SUB 14
 02 HLT
-24 LDA 98
-99 1
+14 LDA 02
+15 1
 `;
 
 const renderRecords = (records) => {
@@ -77,6 +78,7 @@ const renderRecords = (records) => {
 
 const Memory = () => {
 
+  const memoryItems = useSelector(e=>e.memory);
   const mem = buildMemory(initial);
   const classes = useStyles();
 
@@ -103,11 +105,13 @@ const Memory = () => {
         </Toolbar>
       </AppBar>
       <Box className={classes.scroller}>
-        {renderRecords(mem)}
+        {/* {renderRecords(mem)} */}
 
-        {/* {[0,1,2,3,4,6,7,8,9,98,99].map(e=>(
-          <MemoryRecord key={e} address={e} value={e}></MemoryRecord>
-        ))} */}
+        {
+          Object.keys(memoryItems).map((e,i)=>(
+            <MemoryRecord key={e} address={e} value={memoryItems[e].toString(2).padStart(8,"0")}></MemoryRecord>
+          ))
+        }
         <Box p={2}>
           Foobar
           The quick brown fox

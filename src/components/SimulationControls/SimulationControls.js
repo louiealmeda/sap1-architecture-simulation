@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './SimulationControls.scss';
 import { AppBar, Box, Button, IconButton, makeStyles, Toolbar, Tooltip, Typography } from '@material-ui/core';
@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {steps} from '../../redux/reducers/circuit'
 import {nextStep, previousStep, setState} from '../../redux/reducers/pinState'
+import { Circuit } from '../../redux/reducers/circuit2';
 
 
 const useStyles = makeStyles((theme)=>({
@@ -22,15 +23,38 @@ const useStyles = makeStyles((theme)=>({
 
 const SimulationControls = () => {
   const classes = useStyles();
+  const memory = useSelector(e=>e.memory);
+  
+  const [steps, setSteps] = useState();
 
   const step = useSelector(e=>e.step);
   const dispatch = useDispatch();
 
 
   useEffect(()=>{
+
+    if(steps === undefined){
+      return;
+    }
+
+    console.log(steps);
     console.log(steps[step]);
     dispatch(setState(steps[step]));
-  },[step, dispatch]);
+  },[step, steps, dispatch]);
+
+  useEffect(()=>{
+
+    if(steps !== undefined){
+      return;
+    }
+
+    const c = new Circuit({memory});
+
+    const states = c.run();
+    setSteps(states);
+    // console.log(states);
+
+  },[steps]);
 
   const next = () => {
     dispatch(nextStep());
