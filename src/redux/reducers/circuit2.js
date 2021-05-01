@@ -4,7 +4,15 @@ const INSTRUCTIONS = {
     SUB: 0b0010,
     OUT: 0b1110,
     HLT: 0b1111
-}
+};
+
+export const BIN_TO_INSTRUCTIONS = {
+    "0000": "LDA",
+    "0001": "ADD",
+    "0010": "SUB",
+    "1110": "OUT",
+    "1111": "HLT"
+};
 
 export class Circuit {
     memory = {

@@ -10,7 +10,7 @@ import RedoIcon from '@material-ui/icons/Redo';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {steps} from '../../redux/reducers/circuit'
-import {nextStep, previousStep, setState} from '../../redux/reducers/pinState'
+import {nextStep, previousStep, setState, setStep} from '../../redux/reducers/pinState'
 import { Circuit } from '../../redux/reducers/circuit2';
 
 
@@ -26,6 +26,9 @@ const SimulationControls = () => {
   const memory = useSelector(e=>e.memory);
   
   const [steps, setSteps] = useState();
+  const [currentVersion, setCurrentVersion] = useState(-1);
+
+  const version = useSelector(e=>e.version);
 
   const step = useSelector(e=>e.step);
   const dispatch = useDispatch();
@@ -37,24 +40,30 @@ const SimulationControls = () => {
       return;
     }
 
-    console.log(steps);
-    console.log(steps[step]);
     dispatch(setState(steps[step]));
   },[step, steps, dispatch]);
 
   useEffect(()=>{
 
-    if(steps !== undefined){
+    // if(steps !== undefined ){
+    //   return;
+    // }
+
+    if(currentVersion >= version){
       return;
     }
+
+    setCurrentVersion(version);
 
     const c = new Circuit({memory});
 
     const states = c.run();
+    console.log("Regenerated");
     setSteps(states);
+    dispatch(setStep(0));
     // console.log(states);
 
-  },[steps]);
+  },[steps, memory, version, currentVersion, dispatch]);
 
   const next = () => {
     dispatch(nextStep());

@@ -4,6 +4,7 @@
     font-size: 20px;
     z-index: -1;
     border-bottom: 1px solid #EEE;
+    font-family: "Monaco";
 }
 
 .MemoryRecord.placeholder {
@@ -16,11 +17,13 @@
     padding-bottom: 10px;
 }
 
-.MemoryRecord[isActiveInstruction=true]>div:first-child {
-    background-color: #5F5;
+.MemoryRecord[isactiveinstruction=true]>div:first-child {
+    background-color: #a5d6a7;
+    color: white;
+    font-weight: bold;
 }
 
-.MemoryRecord[isActive=true]{
+.MemoryRecord[isactive=true]{
     // box-shadow: 0px 0px 0px 3px #5F5;
-    background-color: #AFA;
+    background-color: #c8e6c9;
 }

@@ -31,6 +31,8 @@ export const controlMap = ["CP","EP","L'M","CE'","L'I","E'I","L'A","EA","SU","EU
 const pinsSlice = createSlice({
   name: 'pins',
   initialState: {
+    version: 0,
+    view: 'binary',
     step: 0,
     t: 1,
     values: {
@@ -68,6 +70,10 @@ const pinsSlice = createSlice({
       // console.log(payload);
       state.control = payload;
     },
+    reset: (state, {payload}) => {
+      state.version += 1;
+      state.memory = payload;
+    },
     setState: (state, {payload})=>{
 
 
@@ -90,6 +96,9 @@ const pinsSlice = createSlice({
       state.control = control;
       state.clock = clock;
     },
+    setStep: (state, {payload}) => {
+      state.step = payload;
+    },
     nextStep: (state) => {
       
       state.step += 1;
@@ -100,11 +109,20 @@ const pinsSlice = createSlice({
       }
 
       state.step -= 1;
-    }
+    },
+    toggleView: (state) => {
+      
+      if(state.view === 'binary'){
+        state.view = "readable";
+        return;
+      }
+
+      state.view = 'binary';
+    },
   }
 })
 
-export const { setControl, setClock, setState, nextStep, previousStep } = pinsSlice.actions
+export const { setControl, setClock, setState, nextStep, setStep, reset, previousStep, toggleView } = pinsSlice.actions
 
 
 const store = configureStore({
