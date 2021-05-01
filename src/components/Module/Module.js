@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme)=>({
     fontWeight: "bold",
     padding: "3px 7px",
     borderRadius: "3px",
-    fontFamily: 'Monaco',
+    fontFamily: 'Monaco, Monospace, Consolas',
     letterSpacing: "2px",
     boxShadow: "0px 2px 6px rgb(0 0 0 / 30%)",
     cursor: "text",

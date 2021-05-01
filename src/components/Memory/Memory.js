@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme)=>({
     width: "100%",
     height: "100%",
     fontSize: "20px",
-    fontFamily: "Monaco",
+    fontFamily: "Monaco, Monospace, Consolas",
     lineHeight: "3em",
     padding: "0px 15px"
   },
@@ -143,6 +143,14 @@ const Memory = () => {
     dispatch(reset(mem))
   }
 
+  const keyDown = (e) => {
+    // console.log(e);
+    e.stopPropagation();
+    // e.preventDefault();
+    // e.nativeEvent.stopImmediatePropagation();
+    return false;
+  }
+
   return (
     <div className={classes.root} data-testid="Memory">
       
@@ -188,7 +196,7 @@ const Memory = () => {
       </AppBar>
       { isEditing ? 
       (
-        <textarea className={classes.textarea} onChange={(e) => setCustomMemory(e.target.value)}>
+        <textarea className={classes.textarea} onKeyDown={keyDown} onChange={(e) => setCustomMemory(e.target.value)}>
           {customMemory}
         </textarea>
       ) : ""
@@ -201,7 +209,7 @@ const Memory = () => {
             <MemoryRecord view={view} isCurrentInstruction={pc == e} isActive={mar == e} key={e} address={e} value={memoryItems[e]}></MemoryRecord>
           ))
         }
-        <ButtonBase onClick={()=> setIsInfoOpen(true)} className={classes.about} display="flex" alignItems="center" style={{color: grey[600]}}>
+        <ButtonBase onClick={()=> setIsInfoOpen(true)} className={classes.about} display="flex" style={{color: grey[600]}}>
           <SchoolIcon style={{width: "64px", height: "64px", paddingRight: "20px"}}/>
           <Box flex="1" pl="2" style={{textAlign: "left"}}>
             MSCS 2021 <br/>
@@ -219,81 +227,79 @@ const Memory = () => {
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-          {/* <DialogTitle id="alert-dialog-slide-title">
-            SAP 1 Architecture Simulator - Creators
-          </DialogTitle> */}
           <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              <Typography variant="h4">About the creators</Typography>
-              
-              <p>This simulator was a Part of the requirements for completing the Computer Architecture Course for the MSCS Program.</p>
+            <Typography variant="h4">About the creators</Typography>
+            
+            <p>This simulator was a Part of the requirements for completing the Computer Architecture Course for the MSCS Program.</p>
 
-              <Box>
-                <Box pt={2} display="flex" alignItems="center">
-                  <Avatar alt="Louie Almeda" src="/images/louie.jpg" style={{width: "50px", height: "50px"}} />
-                  <Box flex="1" pl={1.5}>
-                    <Typography variant="h5">Louie Almeda</Typography>
-                    <strong>Senior Full-stack Software Engineer</strong> 
-                  </Box>
+            <Box pt={2} pb={1}>
+              <Typography variant="h5">Contributors</Typography>
+            </Box>
+            <Box>
+              <Box pt={2} display="flex" alignItems="center">
+                <Avatar alt="Louie Almeda" src="/images/louie.jpg" style={{width: "50px", height: "50px"}} />
+                <Box flex="1" pl={1.5}>
+                  <Typography variant="h5">Louie Almeda</Typography>
+                  <strong>Senior Full-stack Software Engineer</strong> 
                 </Box>
-                <p>
-                  Louie has always been passionate with his craft ever since he first exposed himself to coding in high school and later on got involved in Competitive Programming. To this day, he continuously challenges his skills by learning and training himself on leading-edge technologies. He also finds satisfaction through teaching and sharing his expertise and love for technology. 
-                </p>
               </Box>
+              <p>
+                Louie has always been passionate with his craft ever since he first exposed himself to coding in high school and later on got involved in Competitive Programming. To this day, he continuously challenges his skills by learning and training himself on leading-edge technologies. He also finds satisfaction through teaching and sharing his expertise and love for technology. 
+              </p>
+            </Box>
 
-              <Box>
-                <Box pt={2} display="flex" alignItems="center">
-                  <Avatar alt="Louie Almeda" src="/static/images/avatar/1.jpg" />
-                  <Box flex="1" pl={1.5}>
-                    <Typography variant="h5">Louie Almeda</Typography>
-                    <strong>Senior Full-stack Software Engineer</strong> 
-                  </Box>
+            <Box>
+              <Box pt={2} display="flex" alignItems="center">
+                <Avatar alt="Robert Arzaga" src="/images/robert.jpeg" />
+                <Box flex="1" pl={1.5}>
+                  <Typography variant="h5">Robert Wilfred O. Arzaga</Typography>
+                  <strong>Junior Software Engineer</strong> 
                 </Box>
-                <p>
-                  Louie has always been passionate with his craft ever since he first exposed himself to coding in high school and later on got involved in Competitive Programming. To this day, he continuously challenges his skills by learning and training himself on leading-edge technologies. He also finds satisfaction through teaching and sharing his expertise and love for technology. 
-                </p>
               </Box>
+              <p>
+                Robert is an energetic young professional that enjoys solving thought-provoking problems with logic thru coding. He aspires to have a career on using various types of state-of-the-art technologies to be the best in his profession as a software engineer.
+              </p>
+            </Box>
 
-              <Box>
-                <Box pt={2} display="flex" alignItems="center">
-                  <Avatar alt="Louie Almeda" src="/static/images/avatar/1.jpg" />
-                  <Box flex="1" pl={1.5}>
-                    <Typography variant="h5">Louie Almeda</Typography>
-                    <strong>Senior Full-stack Software Engineer</strong> 
-                  </Box>
+            <Box>
+              <Box pt={2} display="flex" alignItems="center">
+                <Avatar alt="Joeny Germo" src="/static/images/avatar/1.jpg" />
+                <Box flex="1" pl={1.5}>
+                  <Typography variant="h5">Joeny Germo</Typography>
+                  <strong>Lorem ipsum</strong> 
                 </Box>
-                <p>
-                  Louie has always been passionate with his craft ever since he first exposed himself to coding in high school and later on got involved in Competitive Programming. To this day, he continuously challenges his skills by learning and training himself on leading-edge technologies. He also finds satisfaction through teaching and sharing his expertise and love for technology. 
-                </p>
               </Box>
+              <p>
+                Lorem ipsum dolor sit amet
+              </p>
+            </Box>
 
-              <Box>
-                <Box pt={2} display="flex" alignItems="center">
-                  <Avatar alt="Louie Almeda" src="/images/louie.jpg" />
-                  <Box flex="1" pl={1.5}>
-                    <Typography variant="h5">Louie Almeda</Typography>
-                    <strong>Senior Full-stack Software Engineer</strong> 
-                  </Box>
+            <Box>
+              <Box pt={2} display="flex" alignItems="center">
+                <Avatar alt="Reginald Gosela" src="/static/images/avatar/1.jpg" />
+                <Box flex="1" pl={1.5}>
+                  <Typography variant="h5">Reginald Gosela</Typography>
+                  <strong>Lorem ipsum</strong> 
                 </Box>
-                <p>
-                  Louie has always been passionate with his craft ever since he first exposed himself to coding in high school and later on got involved in Competitive Programming. To this day, he continuously challenges his skills by learning and training himself on leading-edge technologies. He also finds satisfaction through teaching and sharing his expertise and love for technology. 
-                </p>
               </Box>
+              <p>
+                Lorem ipsum dolor sit amet
+              </p>
+            </Box>
 
-              <Box>
-                <Box pt={2} display="flex" alignItems="center">
-                  <Avatar alt="Louie Almeda" src="/static/images/avatar/1.jpg" />
-                  <Box flex="1" pl={1.5}>
-                    <Typography variant="h5">Louie Almeda</Typography>
-                    <strong>Senior Full-stack Software Engineer</strong> 
-                  </Box>
+            <Box>
+              <Box pt={2} display="flex" alignItems="center">
+                <Avatar alt="Jhunehay Mitra" src="/static/images/avatar/1.jpg" />
+                <Box flex="1" pl={1.5}>
+                  <Typography variant="h5">Jhunehay Mitra</Typography>
+                  <strong>Lorem ipsum</strong> 
                 </Box>
-                <p>
-                  Louie has always been passionate with his craft ever since he first exposed himself to coding in high school and later on got involved in Competitive Programming. To this day, he continuously challenges his skills by learning and training himself on leading-edge technologies. He also finds satisfaction through teaching and sharing his expertise and love for technology. 
-                </p>
               </Box>
-
-            </DialogContentText>
+              <p>
+                Lorem ipsum dolor sit amet
+              </p>
+            </Box>
+            
           </DialogContent>
           <DialogActions>
             <Button onClick={()=> setIsInfoOpen(false)} color="primary">

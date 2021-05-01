@@ -118,7 +118,7 @@ const SimulationControls = () => {
             </Tooltip>
             {/* {step} */}
             <Box flex="1"></Box>
-            <Tooltip title="How to use this">
+            <Tooltip title="Need help?" arrow>
               <Button edge="start" color="inherit" aria-label="menu" onClick={()=> setIsInfoOpen(true)}>
                 <HelpOutlineIcon />
               </Button>
@@ -131,52 +131,58 @@ const SimulationControls = () => {
           open={isInfoOpen}
           TransitionComponent={Transition}
           keepMounted
-          fullWidth="true"
+          fullWidth
           maxWidth="lg"
           onClose={()=> setIsInfoOpen(false)}
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-              <Box p={10}></Box>
-              <Typography variant="h4">SAP 1 Architecture Simulator</Typography>
-              
-              <p>This simulator aims to help Educators teach how the SAP 1 Architecture works. This simulator features capabilities to support that goal.</p>
+          <DialogContent style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <Box p={5}></Box>
+            <Typography variant="h3">SAP 1 Architecture Simulator</Typography>
+            
+            <p>This simulator aims to help Educators teach how the SAP 1 Architecture works. This simulator features capabilities to support that goal.</p>
 
-              <Box p={5}></Box>
-              <Typography variant="h5">Overview</Typography>
-              <p></p>
-              <img alt="Playback" src="images/Help.jpg"/>
+            <Box p={5}></Box>
+            <Typography variant="h4">Overview</Typography>
+            <p></p>
+            <img alt="Playback" src="images/Help.jpg"/>
 
-              <Box p={6}></Box>
+            <Box p={6}></Box>
 
-              <Typography variant="h5">Interactive Control Pins</Typography>
-              <p>Visually demonstrate how the control pins affects the connections between components.</p>
-              <img className={classes.image} alt="Control Pins" src="images/control-pins.gif"/>
-              
-              <Box p={6}></Box>
-              <Typography variant="h5">Playback controls</Typography>
-              <p>Observe how the whole system interact with the memory, and which pins are changed based on the cycle time and instructions.</p>
-              <img className={classes.image} alt="Playback" src="images/playback.gif"/>
-              
+            <Typography variant="h4">Interactive Control Pins</Typography>
+            <p>Visually demonstrate how the control pins affects the connections between components.</p>
+            <img className={classes.image} alt="Control Pins" src="images/control-pins.gif"/>
+            
+            <Box p={6}></Box>
+            <Typography variant="h4">Playback controls</Typography>
+            <p>Observe how the whole system interact with the memory, and which pins are changed based on the cycle time and instructions.</p>
+            <img className={classes.image} alt="Playback" src="images/playback.gif"/>
+            
 
-              <Box p={6}></Box>
-              <Typography variant="h5">Toggle Memory Display</Typography>
-              <p style={{maxWidth: "600px"}}>Toggle between readable and binary view. Please note that when showing as MNEMONICS, the <em>data</em> memory values may <em>incorrectly</em> show as instructions. The memory doesn't really know which records are instructions or data.</p>
-              <img className={classes.image} alt="Playback" src="images/toggle-view.gif"/>
-              
+            <Box p={6}></Box>
+            <Typography variant="h4">Toggle Memory Display</Typography>
+            <p style={{maxWidth: "600px"}}>Toggle between readable and binary view. Please note that when showing as MNEMONICS, the <em>data</em> memory values may <em>incorrectly</em> show as instructions. The memory doesn't really know which records are instructions or data.</p>
+            <img className={classes.image} alt="Playback" src="images/toggle-view.gif"/>
+            
 
-              <Box p={6}></Box>
-              <Typography variant="h5">Edit Memory and Instruction set</Typography>
-              <p>Edit the instruction set and variables using this control. Please make sure to enter your data as binary. <br/>Little validation is done on this part, so ensure that you've entered a valid structure and instructions</p>
-              <p>The format should be always be a 4-bit address and an 8bit value
-                <pre>address value</pre>
-                <pre>0000 00001110</pre>
-              </p>
-              <img className={classes.image} alt="Playback" src="images/edit-memory.gif"/>
-              
-            </DialogContentText>
+            <Box p={6}></Box>
+            <Typography variant="h4">Edit Memory and Instruction set</Typography>
+            <p>Edit the instruction set and variables using this control. Please make sure to enter your data as binary. <br/>Little validation is done on this part, so ensure that you've entered a valid structure and instructions</p>
+            <p>The format should be always be a 4-bit address &lt;space&gt; 8-bit value</p>
+            <pre>address value</pre>
+            <pre>0000 00001110</pre>
+            
+            Supported Instructions are:
+            <pre>LDA: 0000</pre>
+            <pre>ADD: 0001</pre>
+            <pre>SUB: 0010</pre>
+            <pre>OUT: 1110</pre>
+            <pre>HLT: 1111</pre>
+
+            <Box p={2}></Box>
+            <img className={classes.image} alt="Playback" src="images/edit-memory.gif"/>
+            <Box p={3}></Box>
           </DialogContent>
           <DialogActions>
             <Button onClick={()=> setIsInfoOpen(false)} color="primary">
