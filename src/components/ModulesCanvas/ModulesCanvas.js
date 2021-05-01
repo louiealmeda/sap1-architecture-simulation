@@ -96,7 +96,7 @@ const ModulesCanvas = () => (
 
         bottom={
           <>
-            <Bus enable="E'I" width={12} direction="down"/>
+            <Bus enable="true" width={12} direction="down"/>
           </>
         }
         right={
@@ -172,7 +172,7 @@ const ModulesCanvas = () => (
           </>
         }
       >B Register</Module>
-      <Module name="oreg"
+      <Module name="outreg"
         right={
           <>
             <Pin value="L'O" direction="left"/>
@@ -187,12 +187,12 @@ const ModulesCanvas = () => (
 
         bottom={
           <>
-          {/* Todo: Doublecheck */}
-            <Bus enable="L'O" width={8} direction="down"/>
+            {/* Todo: Doublecheck */}
+            <Bus enable="true" width={8} direction="down"/>
           </>
         }
       >Output Register</Module>
-      <Module name="bd"
+      <Module name="binDis"
         right={
           <Box style={{visibility: 'hidden'}}>
             <Pin direction="left"/>

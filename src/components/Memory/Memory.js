@@ -78,6 +78,9 @@ const renderRecords = (records) => {
 
 const Memory = () => {
 
+  const mar = useSelector(e=>e.values.mar);
+  const pc = useSelector(e=>e.values.pc);
+
   const memoryItems = useSelector(e=>e.memory);
   const mem = buildMemory(initial);
   const classes = useStyles();
@@ -106,10 +109,11 @@ const Memory = () => {
       </AppBar>
       <Box className={classes.scroller}>
         {/* {renderRecords(mem)} */}
-
         {
           Object.keys(memoryItems).map((e,i)=>(
-            <MemoryRecord key={e} address={e} value={memoryItems[e].toString(2).padStart(8,"0")}></MemoryRecord>
+            <>
+              <MemoryRecord isCurrentInstruction={pc == e} isActive={mar == e} key={e} address={e} value={memoryItems[e].toString(2).padStart(8,"0")}></MemoryRecord>
+            </>
           ))
         }
         <Box p={2}>

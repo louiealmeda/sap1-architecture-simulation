@@ -59,8 +59,15 @@ export class Circuit {
         for(let i = 0; i < 20; i++){
             const t = i % 6 + 1;
             this.t = t;
-            states.push(this.tick());
+            const con = this.tick();
+            
+            if(con === undefined){
+                break;
+            }
+
+            states.push(con);
         }
+        console.log(states);
         return states;
 
     }
@@ -68,7 +75,12 @@ export class Circuit {
     tick(){
 
         const pins = this.controlUnit();
-        // console.log(pins);
+        
+        //HLT
+        if(pins === undefined){
+            return undefined;
+        }
+
         this.setPins(pins);
 
         this.programCounter();
@@ -81,15 +93,15 @@ export class Circuit {
         this.ram();
         this.mar();
         this.ram();
-        
-        this.bRegister();
-        this.aRegister();
-        
-        this.outputRegister();
-        this.binaryDisplay();
 
+        this.bRegister();
+        // this.aRegister();
+        
         this.alu();
         this.aRegister();
+
+        this.outputRegister();
+        this.binaryDisplay();
 
         const values = Object.values(this.pins);
 
@@ -198,11 +210,9 @@ export class Circuit {
             return [0,0,1,0, 0,1,1,0, 0,0,1,1];
         }
 
-        console.log("LDA 4")
         if(this.values.cu === INSTRUCTIONS.LDA){
             
             if(this.t === 4){
-                console.log("LDA 4")
                 return [0,0,0,1, 1,0,1,0, 0,0,1,1];
             }
 
@@ -210,9 +220,6 @@ export class Circuit {
                 return [0,0,1,0, 1,1,0,0, 0,0,1,1];
             }
 
-            if(this.t === 6){
-                return [0,0,1,1, 1,1,1,0, 0,0,1,1];
-            }
         }
 
         if(this.values.cu === INSTRUCTIONS.ADD){
@@ -245,6 +252,21 @@ export class Circuit {
             }
         }
 
+        if(this.values.cu === INSTRUCTIONS.OUT){
+            
+            if(this.t === 4){
+                return [0,0,1,1, 1,1,1,1, 0,0,1,0];
+            }
+
+        }
+
+        if(this.values.cu === INSTRUCTIONS.HLT){
+            
+            if(this.t === 4){
+                return undefined;
+            }
+
+        }
 
         //noop
         return [0,0,1,1, 1,1,1,0, 0,0,1,1];
@@ -264,7 +286,6 @@ export class Circuit {
         if(this.isActive("EU")){
             
             ///TODO: check how addition is toggled
-
             if(this.isActive('SU')){
                 this.values.alu = this.values.breg - this.values.areg;
             }else{

@@ -15,3 +15,12 @@
 .MemoryRecord.placeholder div{
     padding-bottom: 10px;
 }
+
+.MemoryRecord[isActiveInstruction=true]>div:first-child {
+    background-color: #5F5;
+}
+
+.MemoryRecord[isActive=true]{
+    // box-shadow: 0px 0px 0px 3px #5F5;
+    background-color: #AFA;
+}

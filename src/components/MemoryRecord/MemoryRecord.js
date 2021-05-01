@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './MemoryRecord.scss';
-import { Box } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import { blue, blueGrey } from '@material-ui/core/colors';
 
-const MemoryRecord = ({address, value }) => {
+
+
+const MemoryRecord = ({address, value, isCurrentInstruction, isActive }) => {
   
   if(address === "..."){
     return (
@@ -16,7 +18,9 @@ const MemoryRecord = ({address, value }) => {
   }
 
   return (
-    <Box className="MemoryRecord" data-testid="MemoryRecord">
+    <Box className="MemoryRecord" data-testid="MemoryRecord" isActiveInstruction={!!isCurrentInstruction+""} isActive={!!isActive+""}>
+      {/* Current: {JSON.stringify(isCurrentInstruction)} <br></br>
+      IsActive: {JSON.stringify(isActive)} */}
       <Box p={2} bgcolor={blue[100]} width="25px">{(address + "").padStart(2,"0")}</Box>
       <Box p={2}>{value}</Box>
     </Box>
