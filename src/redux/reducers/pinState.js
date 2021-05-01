@@ -34,6 +34,7 @@ const pinsSlice = createSlice({
     version: 0,
     view: 'binary',
     step: 0,
+    steps: 0,
     t: 1,
     values: {
       bus: 0b00000,
@@ -96,11 +97,18 @@ const pinsSlice = createSlice({
       state.control = control;
       state.clock = clock;
     },
+    setStepCount: (state, {payload}) =>{
+      state.steps = payload;
+    },
     setStep: (state, {payload}) => {
       state.step = payload;
     },
     nextStep: (state) => {
       
+      if(state.step >= state.steps){
+        return;
+      }
+
       state.step += 1;
     },
     previousStep: (state) => {
@@ -122,7 +130,7 @@ const pinsSlice = createSlice({
   }
 })
 
-export const { setControl, setClock, setState, nextStep, setStep, reset, previousStep, toggleView } = pinsSlice.actions
+export const { setControl, setClock, setState, nextStep, setStepCount, setStep, reset, previousStep, toggleView } = pinsSlice.actions
 
 
 const store = configureStore({
