@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './SimulationControls.scss';
-import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, IconButton, makeStyles, Slide, Slider, Toolbar, Tooltip, Typography } from '@material-ui/core';
+import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, IconButton, makeStyles, Slide, Slider, Snackbar, Toolbar, Tooltip, Typography } from '@material-ui/core';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
@@ -13,6 +13,7 @@ import {steps} from '../../redux/reducers/circuit'
 import {nextStep, previousStep, setState, setStep, setStepCount } from '../../redux/reducers/pinState'
 import { Circuit } from '../../redux/reducers/circuit2';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const useStyles = makeStyles((theme)=>({
@@ -30,6 +31,7 @@ const SimulationControls = () => {
   const classes = useStyles();
   const memory = useSelector(e=>e.memory);
   
+  const [snackbarOpen, setSnackbarOpen] = useState(true);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
 
   const [steps, setSteps] = useState([]);
@@ -190,6 +192,27 @@ const SimulationControls = () => {
             </Button>
           </DialogActions>
         </Dialog>
+        <Snackbar
+          open={snackbarOpen}
+          severity="info"
+          
+          autoHideDuration={15000}
+          // action={<Button>Show me</Button>}
+          onClose={()=>setSnackbarOpen(false)}
+          // TransitionComponent={transition}
+          message="Need help?"
+          action={
+            <> 
+              <Button variant="contained" color="primary" onClick={()=>{ setIsInfoOpen(true); setSnackbarOpen(false); }}>Show me</Button>
+              <Box p={1}/>
+              <IconButton color="secondary" onClick={()=>setSnackbarOpen(false)}>
+                <CloseIcon/>
+              </IconButton>
+            </>
+          }
+          // key={transition ? transition.name : ''}
+          anchorOrigin={{vertical: 'bottom', horizontal:'right'}}
+        />
     </div>
   )
 
