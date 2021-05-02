@@ -203,7 +203,7 @@ const SimulationControls = () => {
           message="Need help?"
           action={
             <> 
-              <Button variant="contained" color="primary" onClick={()=>{ setIsInfoOpen(true); setSnackbarOpen(false); }}>Show me</Button>
+              <Button variant="contained" color="primary" onClick={()=>{ setIsInfoOpen(true); setSnackbarOpen(false); }}>Show me around</Button>
               <Box p={1}/>
               <IconButton color="secondary" onClick={()=>setSnackbarOpen(false)}>
                 <CloseIcon/>
