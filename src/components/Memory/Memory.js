@@ -265,12 +265,12 @@ const Memory = () => {
               <Box pt={2} display="flex" alignItems="center">
                 <Avatar alt="Joeny Germo" src="/static/images/avatar/1.jpg" />
                 <Box flex="1" pl={1.5}>
-                  <Typography variant="h5">Joeny Germo</Typography>
-                  <strong>Lorem ipsum</strong> 
+                <Typography variant="h5">Joeny Germo</Typography>
+                  {/* <strong>Lorem ipsum</strong>  */}
                 </Box>
               </Box>
               <p>
-                Lorem ipsum dolor sit amet
+                {/* Lorem ipsum dolor sit amet */}
               </p>
             </Box>
 
@@ -279,24 +279,24 @@ const Memory = () => {
                 <Avatar alt="Reginald Gosela" src="/static/images/avatar/1.jpg" />
                 <Box flex="1" pl={1.5}>
                   <Typography variant="h5">Reginald Gosela</Typography>
-                  <strong>Lorem ipsum</strong> 
+                  {/* <strong>Lorem ipsum</strong>  */}
                 </Box>
               </Box>
               <p>
-                Lorem ipsum dolor sit amet
+                {/* Lorem ipsum dolor sit amet */}
               </p>
             </Box>
 
             <Box>
               <Box pt={2} display="flex" alignItems="center">
-                <Avatar alt="Jhunehay Mitra" src="/static/images/avatar/1.jpg" />
+                <Avatar alt="Jhunehay Mitra" src="/images/jhunehay.jpeg" />
                 <Box flex="1" pl={1.5}>
-                  <Typography variant="h5">Jhunehay Mitra</Typography>
-                  <strong>Lorem ipsum</strong> 
+                  <Typography variant="h5">Jhune Hay Mitra</Typography>
+                  <strong>College Instructor</strong> 
                 </Box>
               </Box>
               <p>
-                Lorem ipsum dolor sit amet
+                Jhune Hay is a passionate College Instructor since 2017 at Cavite State University taking the degree of Master of Science in Computer Science at the Technological Institute of the Philippines. He loved the feel of fulfillment to share the knowledge that the students need in their field of study.
               </p>
             </Box>
             
